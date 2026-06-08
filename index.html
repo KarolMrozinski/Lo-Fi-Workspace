@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lo-Fi Workspace x Claude Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-default">
+    <!-- Animacja deszczu zostaje w tle -->
+    <canvas id="rainCanvas"></canvas>
+
+    <div class="main-wrapper">
+        <!-- Lewy panel -->
+        <div class="left-sidebar">
+            <div class="widget clock-widget">
+                <h1 id="clock">00:00:00</h1>
+                <p id="currentDateText"></p>
+                <div id="xpBadge">Poziom 1 • 0 XP</div>
+            </div>
+
+            <div class="widget pomodoro-timer">
+                <h3 id="timerDisplay">25:00</h3>
+                <div class="timer-controls">
+                    <button id="startTimer">Start</button>
+                    <button id="resetTimer">Reset</button>
+                </div>
+                <p id="timerLabel">Czas skupienia</p>
+            </div>
+
+            <div class="widget scene-switcher">
+                <h4>Klimat otoczenia</h4>
+                <div class="scene-btns">
+                    <button onclick="changeTheme('default')" title="Domyślny">☀️</button>
+                    <button onclick="changeTheme('rainy')" title="Deszcz">🌧️</button>
+                    <button onclick="changeTheme('night')" title="Noc">🌙</button>
+                </div>
+                <div class="ambient-control">
+                    <input type="range" id="ambientVolume" min="0" max="1" step="0.1" value="0.5">
+                </div>
+            </div>
+
+            <div class="widget lofi-player">
+                <audio id="lofiAudio" src="https://stream.zeno.fm/0r0xa792kwzuv" preload="none"></audio>
+                <audio id="ambientAudio" loop></audio>
+                <button id="playBtn" class="player-btn">🎵 Odtwórz Muzykę</button>
+            </div>
+        </div>
+
+        <!-- Środek -->
+        <div class="center-content">
+            <div class="search-container widget">
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Szukaj w Google lub wpisz adres...">
+                    <button type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth">&lt;</button>
+                    <h2 id="monthDisplay"></h2>
+                    <button id="nextMonth">&gt;</button>
+                </div>
+                <div class="weekdays">
+                    <div>Pn</div><div>Wt</div><div>Śr</div><div>Czw</div><div>Pt</div><div>So</div><div>Nd</div>
+                </div>
+                <div class="days" id="daysContainer"></div>
+            </div>
+
+            <div class="journal-container widget">
+                <h3>Notatnik dzienny</h3>
+                <textarea id="journalInput" placeholder="Zapisz swoje myśli..."></textarea>
+                <p id="saveStatus">Zapisano automatycznie.</p>
+            </div>
+        </div>
+
+        <!-- Prawy panel -->
+        <div class="event-sidebar">
+            <div class="widget weather-mini" id="weatherBox">
+                <span id="weatherIcon">☁️</span> <span id="weatherTemp">--°C</span>
+            </div>
+            <h3>Harmonogram</h3>
+            <div id="eventList"></div>
+        </div>
+    </div>
+
+    <!-- Okno Modalne -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <h3>Szczegóły dnia</h3>
+            <p id="selectedDateText" class="modal-date"></p>
+            <div class="input-group">
+                <input type="text" id="eventTitle" placeholder="Główne wydarzenie...">
+                <select id="eventCategory">
+                    <option value="chill">🌸 Chill</option>
+                    <option value="study">📚 Nauka</option>
+                    <option value="work">💼 Praca</option>
+                </select>
+            </div>
+            <div class="todo-section">
+                <h4>Lista zadań</h4>
+                <div class="todo-input-row">
+                    <input type="text" id="todoInput" placeholder="Zadanie...">
+                    <button id="addTodoBtn">+</button>
+                </div>
+                <div id="todoListContainer"></div>
+            </div>
+            <div class="modal-buttons">
+                <button id="closeModal">Anuluj</button>
+                <button id="deleteEvent" class="delete-btn">Usuń</button>
+                <button id="saveEvent" class="save-btn">Zapisz</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

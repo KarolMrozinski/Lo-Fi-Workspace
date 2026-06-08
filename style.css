@@ -1,0 +1,132 @@
+:root {
+    /* Stylistyka Claude AI dla komponentów */
+    --claude-bg: #ffffff;
+    --claude-input: #fbfaf7;
+    --claude-border: #e5e5e0;
+    --claude-text: #191919;
+    --claude-muted: #6b6b6b;
+    --claude-accent: #cca43b;
+    --delete-color: #e06d6d;
+}
+
+/* Efekty i tła pozostają bez zmian */
+body.theme-default { background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); }
+body.theme-rainy { background: linear-gradient(135deg, #2c3e50 0%, #4b6cb7 100%); }
+body.theme-night { background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+
+body {
+    margin: 0; min-height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: background 1.5s ease;
+    overflow: hidden;
+}
+
+/* Canvas z deszczem */
+#rainCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity 2s; }
+
+.main-wrapper { display: flex; gap: 20px; max-width: 1300px; width: 95%; z-index: 2; position: relative; }
+
+/* Przestylizowane "Tabelki" (Karty) w stylu Claude AI */
+.left-sidebar, .event-sidebar, .calendar-container, .journal-container, .search-container {
+    background: var(--claude-bg);
+    border: 1px solid var(--claude-border);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--claude-text);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.left-sidebar { flex: 0.8; display: flex; flex-direction: column; gap: 14px; }
+.center-content { flex: 2; display: flex; flex-direction: column; gap: 14px; }
+.event-sidebar { flex: 0.8; padding: 20px; max-height: 80vh; overflow-y: auto; }
+
+/* Widgety wewnątrz paneli */
+.widget { padding: 12px; border: 1px solid var(--claude-border); border-radius: 8px; background: var(--claude-input); }
+.clock-widget { border: none; background: transparent; padding: 0; }
+.clock-widget h1 { margin: 0; font-size: 1.8rem; font-weight: 600; color: var(--claude-text); }
+.clock-widget p { margin: 4px 0 0 0; color: var(--claude-muted); font-size: 0.85rem; }
+
+#xpBadge {
+    font-size: 0.75rem; background: var(--claude-bg); color: var(--claude-text);
+    border: 1px solid var(--claude-border); border-radius: 6px; padding: 3px 8px;
+    display: inline-block; margin-top: 8px; font-weight: 500;
+}
+
+/* Pomodoro Timer & Przełączniki (Claude Style) */
+.pomodoro-timer { text-align: center; }
+.pomodoro-timer h3 { font-size: 2rem; margin: 0 0 8px 0; font-weight: 500; }
+.timer-controls button, .scene-btns button, .player-btn {
+    padding: 6px 14px; font-size: 0.85rem; background: var(--claude-bg);
+    color: var(--claude-text); border: 1px solid var(--claude-border);
+    border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.2s;
+}
+.timer-controls button:hover, .scene-btns button:hover, .player-btn:hover { background: #f5f4ee; }
+#timerLabel { font-size: 0.75rem; color: var(--claude-muted); margin-top: 6px; }
+
+/* Scene Switcher */
+.scene-switcher h4 { margin: 0 0 8px 0; font-size: 0.85rem; color: var(--claude-muted); text-align: center; }
+.scene-btns { display: flex; justify-content: center; gap: 8px; }
+.scene-btns button { width: 38px; height: 38px; padding: 0; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; }
+.ambient-control input { width: 100%; margin-top: 8px; cursor: pointer; }
+
+/* Search Bar */
+.search-container { padding: 10px 14px; }
+.search-container form { display: flex; gap: 10px; }
+.search-container input { flex: 1; background: none; border: none; outline: none; color: var(--claude-text); font-size: 0.95rem; }
+.search-container button { background: none; border: none; cursor: pointer; font-size: 1rem; }
+
+/* Kalendarz Claude Style */
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.calendar-header h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+.calendar-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--claude-text); }
+.weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 500; font-size: 0.8rem; color: var(--claude-muted); }
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 8px; }
+
+.day {
+    aspect-ratio: 1.2; display: flex; justify-content: center; align-items: center;
+    cursor: pointer; border-radius: 6px; font-size: 0.85rem; position: relative;
+    border: 1px solid transparent; background: var(--claude-input);
+}
+.day:hover { background: var(--claude-bg); border-color: var(--claude-border); }
+.today { background: var(--claude-text) !important; color: var(--claude-bg) !important; font-weight: 600; }
+
+.event-mark { width: 4px; height: 4px; border-radius: 50%; position: absolute; bottom: 4px; }
+.mark-chill { background: #88b04b; }
+.mark-study { background: #e6a15c; }
+.mark-work { background: #5c8ae6; }
+
+/* Journal */
+.journal-container h3 { margin: 0 0 8px 0; font-size: 0.95rem; }
+.journal-container textarea {
+    width: 100%; height: 75px; background: var(--claude-input);
+    border: 1px solid var(--claude-border); border-radius: 6px;
+    padding: 10px; color: var(--claude-text); font-family: inherit;
+    resize: none; outline: none; box-sizing: border-box; font-size: 0.9rem;
+}
+#saveStatus { font-size: 0.7rem; color: var(--claude-muted); margin: 4px 0 0 0; text-align: right; }
+
+/* Sidebar Prawy */
+.event-sidebar h3 { margin: 0 0 10px 0; font-size: 0.95rem; }
+.weather-mini { border: none; background: var(--claude-input); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+.event-item { padding: 8px 12px; border: 1px solid var(--claude-border); border-radius: 6px; margin-bottom: 6px; font-size: 0.85rem; background: var(--claude-input); }
+
+/* Okno modalne Claude Style */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); }
+.modal-content {
+    background: var(--claude-bg); margin: 8% auto; padding: 20px;
+    border-radius: 12px; width: 320px; color: var(--claude-text);
+    border: 1px solid var(--claude-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.modal-content h3 { margin-top: 0; font-size: 1rem; }
+.input-group input, .input-group select, .todo-input-row input {
+    padding: 6px; border-radius: 6px; border: 1px solid var(--claude-border); background: var(--claude-input); color: inherit;
+}
+.todo-section { background: var(--claude-input); border: 1px solid var(--claude-border); padding: 10px; border-radius: 6px; margin: 12px 0; }
+.todo-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; margin-top: 4px; }
+.todo-item.done { text-decoration: line-through; opacity: 0.5; }
+.modal-buttons { display: flex; gap: 8px; justify-content: flex-end; }
+.modal-buttons button { padding: 6px 12px; border-radius: 6px; font-weight: 500; border: 1px solid var(--claude-border); cursor: pointer; }
+.save-btn { background: var(--claude-text) !important; color: var(--claude-bg) !important; }
+.delete-btn { background: var(--claude-bg); color: var(--delete-color); border-color: var(--delete-color) !important; }
+.player-btn { width: 100%; margin-top: 4px; }
